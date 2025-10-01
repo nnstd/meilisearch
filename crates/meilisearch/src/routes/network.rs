@@ -7,7 +7,7 @@ use deserr::Deserr;
 use index_scheduler::IndexScheduler;
 use itertools::{EitherOrBoth, Itertools};
 use meilisearch_types::deserr::DeserrJsonError;
-use meilisearch_types::enterprise_edition::network::{Network as DbNetwork, Remote as DbRemote};
+use meilisearch_types::network::{Network as DbNetwork, Remote as DbRemote};
 use meilisearch_types::error::deserr_codes::{
     InvalidNetworkRemotes, InvalidNetworkSearchApiKey, InvalidNetworkSelf, InvalidNetworkSharding,
     InvalidNetworkUrl, InvalidNetworkWriteApiKey,

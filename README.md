@@ -99,10 +99,15 @@ Meilisearch is available in two editions:
 - Core search engine with fast and relevant full-text, semantic or hybrid search
 - Free to use for anyone, including commercial usage
 
+### 🚀 Advanced Features
+
+Meilisearch includes advanced features for scaling:
+- **Sharding** - Horizontal scaling by distributing data across multiple nodes (Community feature)
+
 ### 🏢 Enterprise Edition (EE)
 
-- Includes advanced features such as:
-  - Sharding
+- Includes additional enterprise features such as:
+  - Advanced logging endpoints
 - Governed by a [commercial license](./LICENSE-EE) or the [Business Source License 1.1](https://mariadb.com/bsl11)
 - Not allowed in production without a commercial agreement with Meilisearch.
   - You may use, modify, and distribute the Licensed Work for non-production purposes only, such as testing, development, or evaluation.
