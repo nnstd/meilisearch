@@ -1065,7 +1065,7 @@ async fn document_addition(
     };
 
     let scheduler = index_scheduler.clone();
-    let task = match tokio::task::spawn_blocking(move || scheduler.register(task, task_id, dry_run))
+    let mut task = match tokio::task::spawn_blocking(move || scheduler.register(task, task_id, dry_run))
         .await?
     {
         Ok(task) => task,
@@ -1086,6 +1086,11 @@ async fn document_addition(
                 &task,
             )
             .await?;
+            
+            // Reload the task to get updated network information
+            if let Some(updated_task) = index_scheduler.get_task(task.uid)? {
+                task = updated_task;
+            }
         }
     }
 

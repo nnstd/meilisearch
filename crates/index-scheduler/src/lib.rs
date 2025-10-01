@@ -902,6 +902,11 @@ impl IndexScheduler {
         self.features.network()
     }
 
+    pub fn get_task(&self, task_id: TaskId) -> Result<Option<Task>> {
+        let rtxn = self.read_txn()?;
+        self.queue.tasks.get_task(&rtxn, task_id)
+    }
+
     pub fn update_runtime_webhooks(&self, runtime: RuntimeWebhooks) -> Result<()> {
         let webhooks = Webhooks::from_runtime(runtime);
         let mut wtxn = self.env.write_txn()?;
