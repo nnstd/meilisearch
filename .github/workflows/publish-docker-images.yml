@@ -1,4 +1,4 @@
-name: Publish images to Docker Hub
+name: Publish images to GitHub Container Registry
 
 on:
   push:
@@ -15,8 +15,10 @@ on:
 
 jobs:
   docker:
-    runs-on: docker
+    runs-on: ubuntu-latest
     permissions:
+      contents: read
+      packages: write # This is needed to push to GitHub Container Registry
       id-token: write # This is needed to use Cosign in keyless mode
     steps:
       - uses: actions/checkout@v5
