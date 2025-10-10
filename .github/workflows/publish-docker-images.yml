@@ -32,16 +32,16 @@ jobs:
       - name: Define if stable and latest release
         id: check-tag-format
         env:
-          # To avoid request limit with the .github/scripts/is-latest-release.sh script
-          GITHUB_PATH: ${{ secrets.MEILI_BOT_GH_PAT }}
+          # Provide the bot token to the script without overriding runner variables
+          MEILI_BOT_GH_PAT: ${{ secrets.MEILI_BOT_GH_PAT }}
         run: |
-          escaped_tag=$(printf "%q" ${{ github.ref_name }})
           echo "latest=false" >> $GITHUB_OUTPUT
 
-          if [[ ${{ github.event_name }} != 'push' ]]; then
+          if [[ "${{ github.event_name }}" != 'push' ]]; then
             echo "stable=false" >> $GITHUB_OUTPUT
-          elif [[ $escaped_tag =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+          elif [[ "${{ github.ref_name }}" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
             echo "stable=true" >> $GITHUB_OUTPUT
+            # The helper script can read MEILI_BOT_GH_PAT from the environment if it needs auth
             echo "latest=$(sh .github/scripts/is-latest-release.sh)" >> $GITHUB_OUTPUT
           else
             echo "stable=false" >> $GITHUB_OUTPUT
