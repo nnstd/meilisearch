@@ -77,6 +77,7 @@ const MEILI_EXPERIMENTAL_NO_EDITION_2024_FOR_DUMPS: &str =
     "MEILI_EXPERIMENTAL_NO_EDITION_2024_FOR_DUMPS";
 const MEILI_EXPERIMENTAL_PERSONALIZATION_API_KEY: &str =
     "MEILI_EXPERIMENTAL_PERSONALIZATION_API_KEY";
+const MEILI_NETWORK_CONFIG_FILE_PATH: &str = "MEILI_NETWORK_CONFIG_FILE_PATH";
 
 // Related to S3 snapshots
 const MEILI_S3_BUCKET_URL: &str = "MEILI_S3_BUCKET_URL";
@@ -514,6 +515,17 @@ pub struct Opt {
     /// Format must be TOML.
     #[clap(long)]
     pub config_file_path: Option<PathBuf>,
+
+    /// Set the path to a network configuration file that should be used to setup the network.
+    /// This enables the network experimental feature automatically.
+    /// Format must be TOML.
+    #[clap(long, env = MEILI_NETWORK_CONFIG_FILE_PATH)]
+    pub network_config_file_path: Option<PathBuf>,
+
+    /// Parsed network configuration (set internally, not configurable via CLI or config file).
+    #[serde(skip)]
+    #[clap(skip)]
+    pub network: Option<meilisearch_types::network::Network>,
 }
 
 impl Opt {
@@ -562,6 +574,24 @@ impl Opt {
             }
         }
 
+        // Parse network configuration file if provided
+        if let Some(network_config_path) = &opts.network_config_file_path {
+            match std::fs::read_to_string(network_config_path) {
+                Ok(network_config_str) => {
+                    // Parse the TOML network configuration
+                    let network_config: meilisearch_types::network::Network = toml::from_str(&network_config_str)?;
+                    opts.network = Some(network_config);
+                }
+                Err(e) => {
+                    anyhow::bail!(
+                        "unable to open or read the network configuration file {:?}: {}.",
+                        network_config_path,
+                        e,
+                    )
+                }
+            }
+        }
+
         Ok((opts, config_read_from))
     }
 
@@ -596,6 +626,7 @@ impl Opt {
             ignore_missing_dump: _,
             ignore_dump_if_db_exists: _,
             config_file_path: _,
+            network_config_file_path: _,
             no_analytics,
             experimental_contains_filter,
             experimental_enable_metrics,
@@ -613,6 +644,7 @@ impl Opt {
             experimental_no_snapshot_compaction,
             experimental_personalization_api_key,
             s3_snapshot_options,
+            network: _,
         } = self;
         export_to_env_if_not_present(MEILI_DB_PATH, db_path);
         export_to_env_if_not_present(MEILI_HTTP_ADDR, http_addr);

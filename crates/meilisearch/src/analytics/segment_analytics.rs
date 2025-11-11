@@ -286,9 +286,11 @@ impl Infos {
             log_level,
             indexer_options,
             config_file_path,
+            network_config_file_path: _,
             no_analytics: _,
             experimental_personalization_api_key,
             s3_snapshot_options,
+            network: _,
         } = options;
 
         let schedule_snapshot = match schedule_snapshot {

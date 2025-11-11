@@ -282,7 +282,7 @@ pub fn setup_meilisearch(
                 binary_version, // the db is empty
                 handle,
             )?;
-            match import_dump(&opt.db_path, path, &mut index_scheduler, &mut auth_controller) {
+            match import_dump(&opt.db_path, path, &mut index_scheduler, &mut auth_controller, opt.network.as_ref()) {
                 Ok(()) => (index_scheduler, auth_controller),
                 Err(e) => {
                     std::fs::remove_dir_all(&opt.db_path)?;
@@ -466,6 +466,7 @@ fn import_dump(
     dump_path: &Path,
     index_scheduler: &mut IndexScheduler,
     auth: &mut AuthController,
+    network_config: Option<&meilisearch_types::network::Network>,
 ) -> Result<(), anyhow::Error> {
     let progress = Progress::default();
     let reader = File::open(dump_path)?;
@@ -516,7 +517,11 @@ fn import_dump(
     let features = dump_reader.features()?.unwrap_or_default();
     index_scheduler.put_runtime_features(features)?;
 
-    let network = dump_reader.network()?.cloned().unwrap_or_default();
+    let network = if let Some(network_config) = network_config {
+        network_config.clone()
+    } else {
+        dump_reader.network()?.cloned().unwrap_or_default()
+    };
     index_scheduler.put_network(network)?;
 
     // 5.1 Use all cpus to process dump if `max_indexing_threads` not configured
