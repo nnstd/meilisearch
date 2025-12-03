@@ -82,16 +82,21 @@ jobs:
             type=semver,pattern=v{{major}},enable=${{ steps.check-tag-format.outputs.stable == 'true' }}
             type=raw,value=latest,enable=${{ steps.check-tag-format.outputs.stable == 'true' && steps.check-tag-format.outputs.latest == 'true' }}
 
-      - name: Create manifest list and push
-        working-directory: ${{ runner.temp }}/digests
-        run: |
-          docker buildx imagetools create $(jq -cr '.tags | map("-t " + .) | join(" ")' <<< "$DOCKER_METADATA_OUTPUT_JSON") \
-            $(printf '${{ matrix.registry }}@sha256:%s ' *)
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v6
+        with:
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            COMMIT_SHA=${{ github.sha }}
+            COMMIT_DATE=${{ steps.build-metadata.outputs.date }}
+            GIT_TAG=${{ github.ref_name }}
 
       - name: Inspect image to fetch digest to sign
         run: |
-          digest=$(docker buildx imagetools inspect --format='{{ json .Manifest }}' ${{ matrix.registry }}:${{ steps.meta.outputs.version }} | jq -r '.digest')
-          echo "DIGEST=${digest}" >> $GITHUB_ENV
+          digest=$(docker inspect --format='{{ .ID }}' ghcr.io/nnstd/meilisearch:${{ steps.meta.outputs.version }} | sed 's/sha256://')
+          echo "DIGEST=sha256:${digest}" >> $GITHUB_ENV
 
       - name: Sign the images with GitHub OIDC Token
         env:
