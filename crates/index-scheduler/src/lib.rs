@@ -67,6 +67,7 @@ use meilisearch_types::milli::vector::{
     Embedder, EmbedderOptions, RuntimeEmbedder, RuntimeEmbedders, RuntimeFragment,
 };
 use meilisearch_types::milli::{self, Index};
+use meilisearch_types::network::Network;
 use meilisearch_types::task_view::TaskView;
 use meilisearch_types::tasks::{KindWithContent, Task, TaskNetwork};
 use meilisearch_types::webhooks::{Webhook, WebhooksDumpView, WebhooksView};

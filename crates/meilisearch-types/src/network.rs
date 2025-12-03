@@ -1,7 +1,9 @@
 use std::collections::BTreeMap;
 
-use milli::update::new::indexer::sharding::Shards;
 use serde::{Deserialize, Serialize};
+
+#[cfg(feature = "enterprise")]
+use milli::update::new::indexer::enterprise_edition::sharding::Shards;
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 #[serde(rename_all = "camelCase")]
@@ -14,6 +16,17 @@ pub struct Network {
     pub sharding: bool,
 }
 
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+#[serde(rename_all = "camelCase")]
+pub struct Remote {
+    pub url: String,
+    #[serde(default)]
+    pub search_api_key: Option<String>,
+    #[serde(default)]
+    pub write_api_key: Option<String>,
+}
+
+#[cfg(feature = "enterprise")]
 impl Network {
     pub fn shards(&self) -> Option<Shards> {
         if self.sharding {
@@ -29,14 +42,8 @@ impl Network {
             None
         }
     }
-}
 
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
-#[serde(rename_all = "camelCase")]
-pub struct Remote {
-    pub url: String,
-    #[serde(default)]
-    pub search_api_key: Option<String>,
-    #[serde(default)]
-    pub write_api_key: Option<String>,
+    pub fn sharding(&self) -> bool {
+        self.sharding
+    }
 }
