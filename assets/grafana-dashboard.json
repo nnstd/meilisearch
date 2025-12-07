@@ -154,7 +154,7 @@
           },
           "editorMode": "builder",
           "exemplar": true,
-          "expr": "meilisearch_index_count{namespace=\"$namespace\", job=\"$job\", instance=~\"$instance\"}",
+          "expr": "count(count by(index) (meilisearch_index_docs_count{namespace=\"$namespace\", job=\"$job\", instance=~\"$instance\"}))",
           "interval": "",
           "legendFormat": "",
           "range": true,
