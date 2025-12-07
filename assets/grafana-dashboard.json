@@ -850,7 +850,7 @@
           },
           "editorMode": "builder",
           "exemplar": true,
-          "expr": "rate(meilisearch_http_requests_total{namespace=\"$namespace\", instance=\"$instance\", job=\"$job\"}[5m])",
+          "expr": "rate(meilisearch_http_requests_total{namespace=~\"$namespace\", instance=~\"$instance\", job=~\"$job\"}[5m])",
           "interval": "",
           "legendFormat": "{{method}} {{path}}",
           "range": true,
