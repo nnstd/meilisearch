@@ -951,7 +951,7 @@
           },
           "editorMode": "builder",
           "exemplar": true,
-          "expr": "sum by(le) (increase(meilisearch_http_response_time_seconds_bucket{path=\"/indexes/$index/search\", namespace=\"$namespace\", instance=~\"$instance\", job=\"$job\"}[30s]))",
+          "expr": "sum by(le) (increase(meilisearch_http_response_time_seconds_bucket{path=~\"/indexes/.*/search|/multi-search\", namespace=\"$namespace\", instance=~\"$instance\", job=\"$job\"}[30s]))",
           "format": "heatmap",
           "interval": "",
           "legendFormat": "{{le}}",
@@ -959,7 +959,7 @@
           "refId": "A"
         }
       ],
-      "title": "Response time distribution over time (`POST /indexes/:index/search`)",
+      "title": "Search response time distribution over time",
       "tooltip": {
         "show": true,
         "showHistogram": false
