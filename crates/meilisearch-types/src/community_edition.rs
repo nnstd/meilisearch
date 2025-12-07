@@ -7,13 +7,17 @@ pub mod network {
         pub fn shards(&self) -> Option<Shards> {
             if self.sharding {
                 let this = self.local.as_deref().expect("Inconsistent `sharding` and `self`");
-                let others = self
-                    .remotes
-                    .keys()
-                    .filter(|name| name.as_str() != this)
-                    .map(|name| name.to_owned())
-                    .collect();
-                Some(Shards { own: vec![this.to_owned()], others })
+                // Pre-allocate to reduce allocations
+                let mut others = Vec::with_capacity(self.remotes.len().saturating_sub(1));
+                for name in self.remotes.keys() {
+                    if name.as_str() != this {
+                        others.push(name.clone());
+                    }
+                }
+                Some(Shards { 
+                    own: vec![this.to_string()], 
+                    others 
+                })
             } else {
                 None
             }

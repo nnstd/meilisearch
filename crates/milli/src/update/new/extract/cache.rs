@@ -209,7 +209,12 @@ impl<'extractor> BalancedCaches<'extractor> {
                     })
                 })
                 .collect(),
-            InnerCaches::Spilling(SpillingCaches { caches, spilled_entries, .. }) => caches
+            InnerCaches::Spilling(SpillingCaches { caches, spilled_entries, deladd_buffer, cbo_buffer }) => {
+                // Shrink buffers before freezing to release memory
+                deladd_buffer.shrink_to_fit();
+                cbo_buffer.shrink_to_fit();
+
+                caches
                 .iter_mut()
                 .zip(mem::take(spilled_entries))
                 .enumerate()
@@ -241,7 +246,8 @@ impl<'extractor> BalancedCaches<'extractor> {
                     };
                     Ok(FrozenCache { source_id, bucket_id, cache: FrozenMap::new(map), spilled })
                 })
-                .collect(),
+                .collect()
+            }
         }
     }
 }
@@ -349,6 +355,14 @@ impl<'extractor> SpillingCaches<'extractor> {
             deladd_buffer: Vec::new(),
             cbo_buffer: Vec::new(),
         }
+    }
+
+    /// Shrink buffers to release excess memory after processing large documents.
+    /// This method can be called during long-running operations to free up memory.
+    #[allow(dead_code)]
+    fn shrink_buffers(&mut self) {
+        self.deladd_buffer.shrink_to_fit();
+        self.cbo_buffer.shrink_to_fit();
     }
 
     pub fn insert_del_u32(
