@@ -521,7 +521,7 @@
           },
           "editorMode": "builder",
           "exemplar": true,
-          "expr": "rate(meilisearch_http_response_time_seconds_sum{namespace=\"$namespace\", instance=~\"$instance\", job=\"$job\"}[5m]) / rate(meilisearch_http_response_time_seconds_count[5m])",
+          "expr": "sum by(method, path) (rate(meilisearch_http_response_time_seconds_sum{namespace=\"$namespace\", instance=~\"$instance\", job=\"$job\"}[5m])) / sum by(method, path) (rate(meilisearch_http_response_time_seconds_count{namespace=\"$namespace\", instance=~\"$instance\", job=\"$job\"}[5m]))",
           "interval": "",
           "legendFormat": "{{method}} {{path}}",
           "range": true,
