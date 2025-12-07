@@ -15,7 +15,6 @@ use meilisearch_types::error::deserr_codes::{
 use meilisearch_types::error::ResponseError;
 use meilisearch_types::keys::actions;
 use meilisearch_types::milli::update::Setting;
-use meilisearch_types::network::{Network as DbNetwork, Remote as DbRemote};
 use serde::Serialize;
 use tracing::debug;
 use utoipa::{OpenApi, ToSchema};

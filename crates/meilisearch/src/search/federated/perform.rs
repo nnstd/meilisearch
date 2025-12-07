@@ -9,7 +9,6 @@ use std::vec::{IntoIter, Vec};
 use actix_http::StatusCode;
 use index_scheduler::{IndexScheduler, RoFeatures};
 use itertools::Itertools;
-use meilisearch_types::network::{Network, Remote};
 use meilisearch_types::error::ResponseError;
 use meilisearch_types::milli::order_by_map::OrderByMap;
 use meilisearch_types::milli::score_details::{ScoreDetails, WeightedScoreValue};
