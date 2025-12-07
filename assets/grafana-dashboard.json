@@ -244,10 +244,6 @@
               {
                 "color": "green",
                 "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
               }
             ]
           }
@@ -256,8 +252,8 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4,
-        "x": 12,
+        "w": 8,
+        "x": 8,
         "y": 1
       },
       "id": 19,
@@ -286,144 +282,14 @@
           },
           "editorMode": "builder",
           "exemplar": true,
-          "expr": "round(increase(meilisearch_http_requests_total{method=\"POST\", path=\"/indexes/$index/search\", job=\"$job\"}[1h]))",
+          "expr": "round(increase(meilisearch_http_requests_total{method=\"POST\", path=\"/indexes/$index/search\", job=\"$job\"}[$__range]))",
           "interval": "",
           "legendFormat": "",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "Total Searches (1h)",
-      "type": "gauge"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 6,
-        "w": 4,
-        "x": 16,
-        "y": 1
-      },
-      "id": 20,
-      "options": {
-        "minVizHeight": 75,
-        "minVizWidth": 75,
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true,
-        "sizing": "auto",
-        "text": {}
-      },
-      "pluginVersion": "10.4.1",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "editorMode": "builder",
-          "exemplar": true,
-          "expr": "round(increase(meilisearch_http_requests_total{method=\"POST\", path=\"/indexes/$index/search\", job=\"$job\"}[24h]))",
-          "interval": "",
-          "legendFormat": "",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Total Searches (24h)",
-      "type": "gauge"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 6,
-        "w": 4,
-        "x": 20,
-        "y": 1
-      },
-      "id": 21,
-      "options": {
-        "minVizHeight": 75,
-        "minVizWidth": 75,
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true,
-        "sizing": "auto",
-        "text": {}
-      },
-      "pluginVersion": "10.4.1",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "editorMode": "builder",
-          "exemplar": true,
-          "expr": "round(increase(meilisearch_http_requests_total{method=\"POST\", path=\"/indexes/$index/search\", job=\"$job\"}[30d]))",
-          "interval": "",
-          "legendFormat": "",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Total Searches (30d)",
+      "title": "Total Searches",
       "type": "gauge"
     },
     {
