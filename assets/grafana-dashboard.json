@@ -92,7 +92,7 @@
           "refId": "A"
         }
       ],
-      "title": "Web application metrics",
+      "title": "Overview",
       "type": "row"
     },
     {
@@ -293,6 +293,30 @@
       "type": "gauge"
     },
     {
+      "collapsed": false,
+      "datasource": {
+        "type": "prometheus"
+      },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 7
+      },
+      "id": 30,
+      "panels": [],
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus"
+          },
+          "refId": "A"
+        }
+      ],
+      "title": "Storage",
+      "type": "row"
+    },
+    {
       "datasource": {
         "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
@@ -361,7 +385,7 @@
         "h": 11,
         "w": 12,
         "x": 0,
-        "y": 7
+        "y": 8
       },
       "id": 2,
       "interval": "5s",
@@ -508,6 +532,30 @@
       "type": "timeseries"
     },
     {
+      "collapsed": false,
+      "datasource": {
+        "type": "prometheus"
+      },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 19
+      },
+      "id": 31,
+      "panels": [],
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus"
+          },
+          "refId": "A"
+        }
+      ],
+      "title": "HTTP Performance",
+      "type": "row"
+    },
+    {
       "datasource": {
         "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
@@ -567,7 +615,7 @@
         "h": 11,
         "w": 12,
         "x": 0,
-        "y": 18
+        "y": 20
       },
       "id": 27,
       "options": {
@@ -659,7 +707,7 @@
         "h": 11,
         "w": 12,
         "x": 12,
-        "y": 18
+        "y": 20
       },
       "id": 28,
       "options": {
@@ -690,6 +738,30 @@
       ],
       "title": "Error Rate",
       "type": "timeseries"
+    },
+    {
+      "collapsed": false,
+      "datasource": {
+        "type": "prometheus"
+      },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 31
+      },
+      "id": 32,
+      "panels": [],
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus"
+          },
+          "refId": "A"
+        }
+      ],
+      "title": "Request Analysis",
+      "type": "row"
     },
     {
       "datasource": {
@@ -754,7 +826,7 @@
         "h": 11,
         "w": 12,
         "x": 0,
-        "y": 29
+        "y": 32
       },
       "id": 1,
       "interval": "5s",
@@ -821,7 +893,7 @@
         "h": 11,
         "w": 12,
         "x": 12,
-        "y": 29
+        "y": 32
       },
       "heatmap": {},
       "hideZeroBuckets": false,
@@ -969,7 +1041,7 @@
         "h": 11,
         "w": 12,
         "x": 0,
-        "y": 40
+        "y": 43
       },
       "id": 23,
       "interval": "5s",
@@ -1067,7 +1139,7 @@
         "h": 11,
         "w": 12,
         "x": 12,
-        "y": 40
+        "y": 43
       },
       "id": 24,
       "interval": "5s",
@@ -1165,7 +1237,7 @@
         "h": 11,
         "w": 12,
         "x": 0,
-        "y": 51
+        "y": 54
       },
       "id": 25,
       "interval": "5s",
@@ -1263,7 +1335,7 @@
         "h": 11,
         "w": 12,
         "x": 12,
-        "y": 51
+        "y": 54
       },
       "id": 29,
       "interval": "5s",
@@ -1361,7 +1433,7 @@
         "h": 11,
         "w": 12,
         "x": 12,
-        "y": 51
+        "y": 54
       },
       "id": 29,
       "interval": "5s",
@@ -1459,7 +1531,7 @@
         "h": 11,
         "w": 12,
         "x": 12,
-        "y": 51
+        "y": 54
       },
       "id": 29,
       "interval": "5s",
@@ -1584,7 +1656,7 @@
           "exemplar": true,
           "expr": "meilisearch_task_queue_max_size{namespace=\"$namespace\", instance=~\"$instance\", job=\"$job\"}",
           "interval": "",
-          "legendFormat": "{{value}} ",
+          "legendFormat": "{{instance}}",
           "range": true,
           "refId": "A"
         }
