@@ -282,7 +282,7 @@
           },
           "editorMode": "builder",
           "exemplar": true,
-          "expr": "round(increase(meilisearch_http_requests_total{method=\"POST\", path=\"/indexes/$index/search\", job=\"$job\"}[$__range]))",
+          "expr": "round(increase(meilisearch_http_requests_total{method=\"POST\", path=~\"/indexes/.*/search|/multi-search\", namespace=\"$namespace\", job=\"$job\", instance=~\"$instance\"}[$__range]))",
           "interval": "",
           "legendFormat": "",
           "range": true,
