@@ -83,6 +83,7 @@ jobs:
             type=raw,value=latest,enable=${{ steps.check-tag-format.outputs.stable == 'true' && steps.check-tag-format.outputs.latest == 'true' }}
 
       - name: Build and push Docker image
+        id: build-and-push
         uses: docker/build-push-action@v6
         with:
           push: true
@@ -94,10 +95,9 @@ jobs:
             GIT_TAG=${{ github.ref_name }}
             EXTRA_ARGS=
 
-      - name: Inspect image to fetch digest to sign
+      - name: Set digest for signing
         run: |
-          digest=$(docker inspect --format='{{ .ID }}' ghcr.io/nnstd/meilisearch:${{ steps.meta.outputs.version }} | sed 's/sha256://')
-          echo "DIGEST=sha256:${digest}" >> $GITHUB_ENV
+          echo "DIGEST=${{ steps.build-and-push.outputs.digest }}" >> $GITHUB_ENV
 
       - name: Sign the images with GitHub OIDC Token
         env:
