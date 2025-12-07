@@ -218,7 +218,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "builder",
-          "expr": "meilisearch_index_docs_count{namespace=\"$namespace\", job=\"$job\", index=\"$index\", instance=~\"$instance\"}",
+          "expr": "sum(meilisearch_index_docs_count{namespace=\"$namespace\", job=\"$job\", instance=~\"$instance\"})",
           "hide": false,
           "range": true,
           "refId": "A"
