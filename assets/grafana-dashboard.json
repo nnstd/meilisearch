@@ -2140,7 +2140,7 @@
           "type": "prometheus",
           "uid": "${DS_PROMETHEUS}"
         },
-        "definition": "label_values(job)",
+        "definition": "query_result({__name__=~\"meilisearch_.*\", namespace=~\"$namespace\", job!=\"\"})",
         "description": "Prometheus job_name from scrape config (default is meilisearch)",
         "hide": 0,
         "includeAll": false,
@@ -2149,11 +2149,11 @@
         "name": "job",
         "options": [],
         "query": {
-          "query": "label_values(job)",
+          "query": "query_result({__name__=~\"meilisearch_.*\", namespace=~\"$namespace\", job!=\"\"})",
           "refId": "StandardVariableQuery"
         },
         "refresh": 1,
-        "regex": "",
+        "regex": "/.*job=\"([^\"]*).*/",
         "skipUrlSync": false,
         "sort": 0,
         "type": "query"
