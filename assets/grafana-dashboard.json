@@ -2094,7 +2094,7 @@
           "type": "prometheus",
           "uid": "${DS_PROMETHEUS}"
         },
-        "definition": "query_result(topk(1, {__name__=~\"meilisearch_.*\", namespace=~\"$namespace\", instance!=\"\"}))",
+        "definition": "query_result({__name__=~\"meilisearch_.*\", namespace=~\"$namespace\", instance!=\"\"})",
         "hide": 0,
         "includeAll": true,
         "label": "Instance",
@@ -2102,7 +2102,7 @@
         "name": "instance",
         "options": [],
         "query": {
-          "query": "query_result(topk(1, {__name__=~\"meilisearch_.*\", namespace=~\"$namespace\", instance!=\"\"}))",
+          "query": "query_result({__name__=~\"meilisearch_.*\", namespace=~\"$namespace\", instance!=\"\"})",
           "refId": "StandardVariableQuery"
         },
         "refresh": 1,
