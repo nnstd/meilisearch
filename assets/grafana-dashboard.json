@@ -979,6 +979,30 @@
       "yBucketNumber": 10
     },
     {
+      "collapsed": false,
+      "datasource": {
+        "type": "prometheus"
+      },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 43
+      },
+      "id": 33,
+      "panels": [],
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus"
+          },
+          "refId": "A"
+        }
+      ],
+      "title": "Tasks",
+      "type": "row"
+    },
+    {
       "datasource": {
         "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
@@ -1041,7 +1065,7 @@
         "h": 11,
         "w": 12,
         "x": 0,
-        "y": 43
+        "y": 44
       },
       "id": 23,
       "interval": "5s",
@@ -1139,7 +1163,7 @@
         "h": 11,
         "w": 12,
         "x": 12,
-        "y": 43
+        "y": 44
       },
       "id": 24,
       "interval": "5s",
@@ -1237,7 +1261,7 @@
         "h": 11,
         "w": 12,
         "x": 0,
-        "y": 54
+        "y": 55
       },
       "id": 25,
       "interval": "5s",
@@ -1371,6 +1395,128 @@
       "type": "timeseries"
     },
     {
+      "collapsed": false,
+      "datasource": {
+        "type": "prometheus"
+      },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 55
+      },
+      "id": 34,
+      "panels": [],
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus"
+          },
+          "refId": "A"
+        }
+      ],
+      "title": "Queue Metrics",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 15,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 12,
+        "x": 0,
+        "y": 56
+      },
+      "id": 29,
+      "interval": "5s",
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.1.4",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "builder",
+          "exemplar": true,
+          "expr": "meilisearch_task_queue_latency_seconds{namespace=\"$namespace\", instance=~\"$instance\", job=\"$job\"}",
+          "interval": "",
+          "legendFormat": "{{value}} ",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Task queue latency",
+      "type": "timeseries"
+    },
+    {
       "datasource": {
         "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
@@ -1433,9 +1579,9 @@
         "h": 11,
         "w": 12,
         "x": 12,
-        "y": 54
+        "y": 56
       },
-      "id": 29,
+      "id": 35,
       "interval": "5s",
       "options": {
         "legend": {
@@ -1530,10 +1676,10 @@
       "gridPos": {
         "h": 11,
         "w": 12,
-        "x": 12,
-        "y": 54
+        "x": 0,
+        "y": 67
       },
-      "id": 29,
+      "id": 36,
       "interval": "5s",
       "options": {
         "legend": {
@@ -1629,9 +1775,9 @@
         "h": 11,
         "w": 12,
         "x": 12,
-        "y": 51
+        "y": 67
       },
-      "id": 29,
+      "id": 37,
       "interval": "5s",
       "options": {
         "legend": {
@@ -1674,7 +1820,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 62
+        "y": 78
       },
       "id": 12,
       "panels": [
@@ -1742,7 +1888,7 @@
             "h": 11,
             "w": 12,
             "x": 0,
-            "y": 60
+            "y": 68
           },
           "id": 4,
           "interval": "5s",
@@ -1849,7 +1995,7 @@
             "h": 11,
             "w": 12,
             "x": 12,
-            "y": 60
+            "y": 68
           },
           "id": 5,
           "interval": "5s",
