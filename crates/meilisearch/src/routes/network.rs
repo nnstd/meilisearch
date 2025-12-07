@@ -211,16 +211,6 @@ async fn patch_network(
     let old_network = index_scheduler.network();
     debug!(parameters = ?new_network, "Patch network");
 
-    #[cfg(not(feature = "enterprise"))]
-    if new_network.sharding.set().is_some() {
-        use meilisearch_types::error::Code;
-
-        return Err(ResponseError::from_msg(
-            "Meilisearch Enterprise Edition is required to set `network.sharding`".into(),
-            Code::RequiresEnterpriseEdition,
-        ));
-    }
-
     let merged_self = match new_network.local {
         Setting::Set(new_self) => Some(new_self),
         Setting::Reset => None,
