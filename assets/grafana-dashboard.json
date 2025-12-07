@@ -528,7 +528,7 @@
           "refId": "A"
         }
       ],
-      "title": "Mean response time (All Indexes)",
+      "title": "Mean response time",
       "type": "timeseries"
     },
     {
@@ -850,14 +850,14 @@
           },
           "editorMode": "builder",
           "exemplar": true,
-          "expr": "rate(meilisearch_http_requests_total{namespace=~\"$namespace\", instance=~\"$instance\", job=~\"$job\"}[5m])",
+          "expr": "sum by(method, path) (rate(meilisearch_http_requests_total{namespace=~\"$namespace\", instance=~\"$instance\", job=~\"$job\"}[5m]))",
           "interval": "",
           "legendFormat": "{{method}} {{path}}",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "HTTP requests per second (All Indexes)",
+      "title": "HTTP requests per second",
       "type": "timeseries"
     },
     {
@@ -1090,7 +1090,7 @@
           },
           "editorMode": "builder",
           "exemplar": true,
-          "expr": "meilisearch_nb_tasks{namespace=\"$namespace\", instance=~\"$instance\", job=\"$job\", kind=\"statuses\"}",
+          "expr": "sum by(value) (meilisearch_nb_tasks{namespace=\"$namespace\", instance=~\"$instance\", job=\"$job\", kind=\"statuses\"})",
           "interval": "",
           "legendFormat": "{{value}} ",
           "range": true,
@@ -1188,7 +1188,7 @@
           },
           "editorMode": "builder",
           "exemplar": true,
-          "expr": "meilisearch_nb_tasks{namespace=\"$namespace\", instance=~\"$instance\", job=\"$job\", kind=\"types\"}",
+          "expr": "sum by(value) (meilisearch_nb_tasks{namespace=\"$namespace\", instance=~\"$instance\", job=\"$job\", kind=\"types\"})",
           "interval": "",
           "legendFormat": "{{value}} ",
           "range": true,
@@ -1286,7 +1286,7 @@
           },
           "editorMode": "builder",
           "exemplar": true,
-          "expr": "meilisearch_nb_tasks{namespace=\"$namespace\", instance=~\"$instance\", job=\"$job\", kind=\"indexes\"}",
+          "expr": "sum by(value) (meilisearch_nb_tasks{namespace=\"$namespace\", instance=~\"$instance\", job=\"$job\", kind=\"indexes\"})",
           "interval": "",
           "legendFormat": "{{value}} ",
           "range": true,
